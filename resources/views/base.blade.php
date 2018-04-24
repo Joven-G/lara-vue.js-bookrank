@@ -19,7 +19,7 @@
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active">
-                            <a href="{{ route('create') }}">Get this</a>
+                            <a href="#">Get this</a>
                         </li>
                     </ul>
                 </div>

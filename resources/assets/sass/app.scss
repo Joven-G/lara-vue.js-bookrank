@@ -61,23 +61,6 @@ nav.navbar-findcond {
     }
   }
 }
-button[type="submit"] {
-  border-radius: 2px;
-  color: $color_3;
-  background: #e74c3c;
-  padding: 10px;
-  font-size: 13px;
-  text-transform: uppercase;
-  margin: 0;
-  font-weight: 400;
-  text-align: center;
-  border: none;
-  cursor: pointer;
-  transition: background .5s;
-  &:hover {
-    background: #2f3c4e;
-  }
-}
 
 .img-book-cover {
   width: $book_cover_size;

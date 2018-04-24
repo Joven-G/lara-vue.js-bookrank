@@ -16,9 +16,17 @@ bus = new Vue({});
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+/* Third Party's*/
 Vue.component('paginate', require('vuejs-paginate'));
+
+/* Prefabs */
+Vue.component('voting-control', require('./components/prefabs/VotingControl.vue'));
+Vue.component('book-card', require('./components/prefabs/BookCard.vue'));
+
+/* Sections */
 Vue.component('books', require('./components/Books.vue'));
 Vue.component('book-form', require('./components/BookForm.vue'));
+Vue.component('single-book', require('./components/SingleBook.vue'));
 
 const app = new Vue({
     el: '#app'

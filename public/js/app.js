@@ -14001,9 +14001,17 @@ bus = new Vue({});
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+/* Third Party's*/
 Vue.component('paginate', __webpack_require__(40));
+
+/* Prefabs */
+Vue.component('voting-control', __webpack_require__(55));
+Vue.component('book-card', __webpack_require__(58));
+
+/* Sections */
 Vue.component('books', __webpack_require__(41));
 Vue.component('book-form', __webpack_require__(44));
+Vue.component('single-book', __webpack_require__(52));
 
 var app = new Vue({
   el: '#app'
@@ -47318,39 +47326,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			books: [],
-			meta: {},
-			posting: false
+			meta: {}
 		};
 	},
 	mounted: function mounted() {
@@ -47371,39 +47352,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			axios.get('/api/books').then(function (response) {
 				app.parseResponse(response);
 			});
-		},
-		likeBook: function likeBook(book) {
-			var app = this;
-			if (this.posting) return;
-			this.posting = true;
-			axios.put('/api/books/' + book.id + '/vote-up').then(function (response) {
-				app.parseResponse(response);
-				app.posting = false;
-			});
-		},
-		hateBook: function hateBook(book) {
-			var app = this;
-			if (this.posting) return;
-			this.posting = true;
-			axios.put('/api/books/' + book.id + '/vote-down').then(function (response) {
-				app.parseResponse(response);
-				app.posting = false;
-			});
-		},
-		getVoteClass: function getVoteClass(votes) {
-			if (votes == 0) {
-				return;
-			}
-			return votes > 0 ? 'text-success' : 'text-danger';
-		},
-		formatVotes: function formatVotes(votes) {
-			var padZero = function padZero(num) {
-				if (num < 0) {
-					return num > -10 ? '-0' + num * -1 : num;
-				}
-				return num < 10 ? '0' + num : num;
-			};
-			return votes ? padZero(votes) : '00';
 		}
 	}
 });
@@ -47420,119 +47368,16 @@ var render = function() {
     "div",
     { staticClass: "row justify-content-between" },
     _vm._l(_vm.books, function(book) {
-      return _c("div", { staticClass: "col-md-6 my-3" }, [
-        _c("div", { staticClass: "card py-2 px-3" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "row col-md-12" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-1 mr-auto row justify-content-center align-items-center"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "text-muted text-center",
-                      staticStyle: { "max-width": "50px !important" }
-                    },
-                    [
-                      _c("p"),
-                      _vm._v(" "),
-                      _c("i", {
-                        staticClass: "fa fa-sort-up fa-3x vote-arrow like",
-                        on: {
-                          click: function($event) {
-                            _vm.likeBook(book)
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          class:
-                            "h2 vote-arrow number " +
-                            _vm.getVoteClass(book.votes)
-                        },
-                        [_vm._v(_vm._s(_vm.formatVotes(book.votes)))]
-                      ),
-                      _vm._v(" "),
-                      _c("i", {
-                        staticClass:
-                          "fa fa-sort-down fa-3x vote-arrow hate mt-3",
-                        on: {
-                          click: function($event) {
-                            _vm.hateBook(book)
-                          }
-                        }
-                      })
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _vm._m(0, true),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-8 ml-auto" }, [
-                _c("h5", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v(_vm._s(book.title))
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("span", [
-                  _vm._v("Author: "),
-                  _c("b", [
-                    _vm._v(
-                      _vm._s(book.author.first_name) +
-                        " " +
-                        _vm._s(book.author.last_name)
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("span", [
-                  _vm._v("Genre: "),
-                  _c("b", [_vm._v(_vm._s(book.genre))])
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("span", [
-                  _vm._v("Year: "),
-                  _c("b", [_vm._v(_vm._s(book.year))])
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(book.description))])
-              ])
-            ])
-          ])
-        ])
-      ])
+      return _c(
+        "div",
+        { staticClass: "col-md-6 my-3" },
+        [_c("book-card", { attrs: { book: book, onVote: _vm.parseResponse } })],
+        1
+      )
     })
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("img", {
-        staticClass: "img-responsive img-book-cover",
-        attrs: {
-          src: "https://www.opeeqo.com/public/assets/img/avatar-placeholder.jpg"
-        }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -48005,6 +47850,453 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(11)
+/* script */
+var __vue_script__ = __webpack_require__(53)
+/* template */
+var __vue_template__ = __webpack_require__(54)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/SingleBook.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-65380c48", Component.options)
+  } else {
+    hotAPI.reload("data-v-65380c48", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['book_id'],
+	data: function data() {
+		return {
+			book: {
+				author: {}
+			}
+		};
+	},
+	mounted: function mounted() {
+		this.getSingleBook();
+	},
+
+	methods: {
+		parseResponse: function parseResponse(response) {
+			this.book = response.data.data;
+		},
+		getSingleBook: function getSingleBook() {
+			var app = this;
+			axios.get('/api/books/' + app.book_id).then(function (response) {
+				app.parseResponse(response);
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "pt-5" },
+    [_c("book-card", { attrs: { book: _vm.book, onVote: _vm.getSingleBook } })],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-65380c48", module.exports)
+  }
+}
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(11)
+/* script */
+var __vue_script__ = __webpack_require__(56)
+/* template */
+var __vue_template__ = __webpack_require__(57)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/prefabs/VotingControl.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-16c436ef", Component.options)
+  } else {
+    hotAPI.reload("data-v-16c436ef", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['book', 'onVote'],
+	data: function data() {
+		return {};
+	},
+	mounted: function mounted() {},
+
+	methods: {
+		likeBook: function likeBook() {
+			var app = this;
+			axios.put('/api/books/' + app.book.id + '/vote-up').then(function (response) {
+				app.onVote(response);
+			});
+		},
+		hateBook: function hateBook() {
+			var app = this;
+			axios.put('/api/books/' + app.book.id + '/vote-down').then(function (response) {
+				app.onVote(response);
+			});
+		},
+		getVoteClass: function getVoteClass(votes) {
+			if (this.book.votes == 0) {
+				return;
+			}
+			return this.book.votes > 0 ? 'text-success' : 'text-danger';
+		},
+		formatVotes: function formatVotes() {
+			var padZero = function padZero(num) {
+				if (num < 0) {
+					return num > -10 ? '-0' + num * -1 : num;
+				}
+				return num < 10 ? '0' + num : num;
+			};
+			return this.book.votes ? padZero(this.book.votes) : '00';
+		}
+	}
+});
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass:
+        "col-md-1 mr-auto row justify-content-center align-items-center"
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "text-muted text-center",
+          staticStyle: { "max-width": "50px !important" }
+        },
+        [
+          _c("p"),
+          _vm._v(" "),
+          _c("i", {
+            staticClass: "fa fa-sort-up fa-3x vote-arrow like",
+            on: {
+              click: function($event) {
+                _vm.likeBook()
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { class: "h2 vote-arrow number " + _vm.getVoteClass() }, [
+            _vm._v(_vm._s(_vm.formatVotes()))
+          ]),
+          _vm._v(" "),
+          _c("i", {
+            staticClass: "fa fa-sort-down fa-3x vote-arrow hate mt-3",
+            on: {
+              click: function($event) {
+                _vm.hateBook()
+              }
+            }
+          })
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-16c436ef", module.exports)
+  }
+}
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(11)
+/* script */
+var __vue_script__ = __webpack_require__(59)
+/* template */
+var __vue_template__ = __webpack_require__(60)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/prefabs/BookCard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a685bc20", Component.options)
+  } else {
+    hotAPI.reload("data-v-a685bc20", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['book', 'onVote']
+});
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card py-2 px-3" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _c(
+        "div",
+        { staticClass: "row col-md-12" },
+        [
+          _c("voting-control", {
+            attrs: { book: _vm.book, onVote: _vm.onVote }
+          }),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-7 ml-auto" }, [
+            _c("h5", [
+              _c("a", { attrs: { href: "/books/" + _vm.book.id } }, [
+                _vm._v(_vm._s(_vm.book.title))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("span", [
+              _vm._v("Author: "),
+              _c("b", [
+                _vm._v(
+                  _vm._s(_vm.book.author.first_name) +
+                    " " +
+                    _vm._s(_vm.book.author.last_name)
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("span", [
+              _vm._v("Genre: "),
+              _c("b", [_vm._v(_vm._s(_vm.book.genre))])
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("span", [
+              _vm._v("Year: "),
+              _c("b", [_vm._v(_vm._s(_vm.book.year))])
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(_vm.book.description))])
+          ])
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "col-md-4 row justify-content-center align-items-self" },
+      [
+        _c("img", {
+          staticClass: "img-fluid",
+          attrs: {
+            src:
+              "https://www.opeeqo.com/public/assets/img/avatar-placeholder.jpg"
+          }
+        })
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a685bc20", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
