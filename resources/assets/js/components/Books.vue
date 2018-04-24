@@ -39,7 +39,7 @@
 		},
 		mounted() {
 			const app = this;
-			this.$on('fetchBooks', function () {
+			bus.$on('fetchBooks', function () {
 				app.fetchBooks();
 			});
 			this.fetchBooks();

@@ -9,7 +9,7 @@
 	            	<h3 class="page-title">Recent Books</h3>
 	            	<hr>
             	</div>
-                <books @fetch="this"></books>
+                <books></books>
             </div>
         </div>
     </div>

@@ -74,7 +74,7 @@
 			}
 		},
 		methods: {
-			onSubmit() {
+			onSubmit(ev) {
 				const app = this;
 				axios.post('/api/books', {
 					title: app.book.title,
@@ -84,11 +84,11 @@
 					author_id: 1,
 					genre: app.book.genre
 				}).then(function (response) {
-					app.$emit('fetch');
-					app.reset();
+					bus.$emit('fetchBooks');
+					app.reset(ev);
 				});
 			},
-			reset() {
+			reset(ev) {
 				this.book = {
 					title: '',
 					year: 2018,
@@ -97,6 +97,7 @@
 					author: '',
 					genre: '',
 				};
+				ev.target.reset();
 			}
 		},
 	}

@@ -13993,6 +13993,7 @@ module.exports = __webpack_require__(47);
 __webpack_require__(14);
 
 window.Vue = __webpack_require__(37);
+bus = new Vue({});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -47350,7 +47351,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	mounted: function mounted() {
 		var app = this;
-		this.$on('fetchBooks', function () {
+		bus.$on('fetchBooks', function () {
 			app.fetchBooks();
 		});
 		this.fetchBooks();
@@ -47639,7 +47640,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		onSubmit: function onSubmit() {
+		onSubmit: function onSubmit(ev) {
 			var app = this;
 			axios.post('/api/books', {
 				title: app.book.title,
@@ -47649,11 +47650,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				author_id: 1,
 				genre: app.book.genre
 			}).then(function (response) {
-				app.$emit('fetch');
-				app.reset();
+				bus.$emit('fetchBooks');
+				app.reset(ev);
 			});
 		},
-		reset: function reset() {
+		reset: function reset(ev) {
 			this.book = {
 				title: '',
 				year: 2018,
@@ -47662,6 +47663,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				author: '',
 				genre: ''
 			};
+			ev.target.reset();
 		}
 	}
 });
