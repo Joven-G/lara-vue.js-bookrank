@@ -47503,6 +47503,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -47512,10 +47515,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				year: 2018,
 				description: '',
 				cover: '',
-				author: '',
+				author_id: '',
 				genre: ''
-			}
+			},
+			authors: []
 		};
+	},
+	mounted: function mounted() {
+		this.getAuthors();
 	},
 
 	methods: {
@@ -47526,11 +47533,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				year: app.book.year,
 				description: app.book.description,
 				cover: app.book.cover,
-				author_id: 1,
+				author_id: app.book.author_id,
 				genre: app.book.genre
 			}).then(function (response) {
 				bus.$emit('fetchBooks');
 				app.reset(ev);
+			});
+		},
+		getAuthors: function getAuthors() {
+			var app = this;
+			axios.get('/api/authors').then(function (response) {
+				app.authors = response.data.data;
 			});
 		},
 		reset: function reset(ev) {
@@ -47539,7 +47552,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				year: 2018,
 				description: '',
 				cover: '',
-				author: '',
+				author_id: '',
 				genre: ''
 			};
 			ev.target.reset();
@@ -47672,32 +47685,53 @@ var render = function() {
                         [_vm._v("Author")]
                       ),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.book.author,
-                            expression: "book.author"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          required: "",
-                          type: "text",
-                          id: "bookAuthor",
-                          placeholder: "Book author..."
-                        },
-                        domProps: { value: _vm.book.author },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.book.author_id,
+                              expression: "book.author_id"
                             }
-                            _vm.$set(_vm.book, "author", $event.target.value)
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.book,
+                                "author_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
                           }
-                        }
-                      })
+                        },
+                        [
+                          _c("option", { attrs: { value: "" } }, [
+                            _vm._v("Select an author")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.authors, function(author) {
+                            return _c(
+                              "option",
+                              { domProps: { value: author.id } },
+                              [_vm._v(_vm._s(author.full_name))]
+                            )
+                          })
+                        ],
+                        2
+                      )
                     ])
                   ]),
                   _vm._v(" "),

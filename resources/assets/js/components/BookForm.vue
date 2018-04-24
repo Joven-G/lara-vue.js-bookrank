@@ -30,7 +30,10 @@
 								<div class="col-md-8">
 									<div class="form-group">
 										<label for="" class="label-form" for="bookAuthor">Author</label>
-										<input required type="text" class="form-control" id="bookAuthor" v-model="book.author"  placeholder="Book author...">
+										<select v-model="book.author_id" class="form-control">
+											<option value="">Select an author</option>
+											<option v-for="author in authors" :value="author.id">{{author.full_name}}</option>
+										</select>
 									</div>
 								</div>
 								<div class="col-md-4">
@@ -68,10 +71,14 @@
 					year: 2018,
 					description: '',
 					cover: '',
-					author: '',
+					author_id: '',
 					genre: '',
 				},
+				authors: [],
 			}
+		},
+		mounted() {
+			this.getAuthors();
 		},
 		methods: {
 			onSubmit(ev) {
@@ -81,11 +88,18 @@
 					year: app.book.year,
 					description: app.book.description,
 					cover: app.book.cover,
-					author_id: 1,
+					author_id: app.book.author_id,
 					genre: app.book.genre
 				}).then(function (response) {
 					bus.$emit('fetchBooks');
 					app.reset(ev);
+				});
+			},
+			getAuthors() {
+				const app = this;
+				axios.get('/api/authors')
+				.then(function(response) {
+					app.authors = response.data.data;
 				});
 			},
 			reset(ev) {
@@ -94,7 +108,7 @@
 					year: 2018,
 					description: '',
 					cover: '',
-					author: '',
+					author_id: '',
 					genre: '',
 				};
 				ev.target.reset();
