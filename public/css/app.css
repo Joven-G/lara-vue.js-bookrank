@@ -10450,7 +10450,6 @@ button[type="submit"] {
   text-align: center;
   border: none;
   cursor: pointer;
-  width: 10%;
   -webkit-transition: background .5s;
   transition: background .5s;
 }
@@ -10479,5 +10478,13 @@ button[type="submit"]:hover {
 
 .vote-arrow.hate:hover {
   color: #f14444;
+}
+
+textarea {
+  resize: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 

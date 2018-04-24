@@ -47349,6 +47349,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
+		var app = this;
+		this.$on('fetchBooks', function () {
+			app.fetchBooks();
+		});
 		this.fetchBooks();
 	},
 
@@ -47374,6 +47378,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			axios.put('/api/books/' + book.id + '/vote-down').then(function (response) {
 				app.parseResponse(response);
 			});
+		},
+		getVoteClass: function getVoteClass(votes) {
+			if (votes == 0) {
+				return;
+			}
+			return votes > 0 ? 'text-success' : 'text-danger';
 		},
 		formatVotes: function formatVotes(votes) {
 			var padZero = function padZero(num) {
@@ -47420,9 +47430,14 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _c("span", { staticClass: "h1 vote-arrow number" }, [
-                    _vm._v(_vm._s(_vm.formatVotes(book.votes)))
-                  ]),
+                  _c(
+                    "span",
+                    {
+                      class:
+                        "h1 vote-arrow number " + _vm.getVoteClass(book.votes)
+                    },
+                    [_vm._v(_vm._s(_vm.formatVotes(book.votes)))]
+                  ),
                   _vm._v(" "),
                   _c("i", {
                     staticClass: "fa fa-sort-down fa-3x vote-arrow hate mt-3",
@@ -47553,8 +47568,103 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			book: {
+				title: '',
+				year: 2018,
+				description: '',
+				cover: '',
+				author: '',
+				genre: ''
+			}
+		};
+	},
+
+	methods: {
+		onSubmit: function onSubmit() {
+			var app = this;
+			axios.post('/api/books', {
+				title: app.book.title,
+				year: app.book.year,
+				description: app.book.description,
+				cover: app.book.cover,
+				author_id: 1,
+				genre: app.book.genre
+			}).then(function (response) {
+				app.$emit('fetch');
+				app.reset();
+			});
+		},
+		reset: function reset() {
+			this.book = {
+				title: '',
+				year: 2018,
+				description: '',
+				cover: '',
+				author: '',
+				genre: ''
+			};
+		}
+	}
+});
 
 /***/ }),
 /* 46 */
@@ -47564,9 +47674,287 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [
+    _c("div", { staticClass: "card mt-5" }, [
+      _c("div", { staticClass: "card-body" }, [
+        _c("h4", [_vm._v("Publish a book")]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-9 ml-auto" }, [
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.onSubmit($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-8" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "label-form",
+                          attrs: { for: "", for: "bookTitle" }
+                        },
+                        [_vm._v("Title")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.book.title,
+                            expression: "book.title"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          required: "",
+                          type: "text",
+                          id: "bookTitle",
+                          placeholder: "Book title..."
+                        },
+                        domProps: { value: _vm.book.title },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.book, "title", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "label-form",
+                          attrs: { for: "", for: "bookYear" }
+                        },
+                        [_vm._v("Year")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.book.year,
+                            expression: "book.year"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          required: "",
+                          type: "number",
+                          id: "bookYear",
+                          pattern: "####",
+                          placeholder: "Book year..."
+                        },
+                        domProps: { value: _vm.book.year },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.book, "year", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-8" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "label-form",
+                          attrs: { for: "", for: "bookAuthor" }
+                        },
+                        [_vm._v("Author")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.book.author,
+                            expression: "book.author"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          required: "",
+                          type: "text",
+                          id: "bookAuthor",
+                          placeholder: "Book author..."
+                        },
+                        domProps: { value: _vm.book.author },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.book, "author", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "label-form",
+                          attrs: { for: "", for: "bookGenre" }
+                        },
+                        [_vm._v("Genre")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.book.genre,
+                            expression: "book.genre"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          required: "",
+                          type: "text",
+                          id: "bookGenre",
+                          placeholder: "Book genre..."
+                        },
+                        domProps: { value: _vm.book.genre },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.book, "genre", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "label-form",
+                          attrs: { for: "", for: "bookDescription" }
+                        },
+                        [_vm._v("Description")]
+                      ),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.book.description,
+                            expression: "book.description"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          required: "",
+                          type: "number",
+                          id: "bookDescription",
+                          maxlength: "255",
+                          rows: "5",
+                          autosize: "off",
+                          placeholder: "Book description..."
+                        },
+                        domProps: { value: _vm.book.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.book,
+                              "description",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "col row justify-content-center align-items-center text-center text-muted border-right mr-3 mb-4 cursor-pointer"
+      },
+      [
+        _c("div", [
+          _c("i", { staticClass: "fa fa-camera fa-5x text-muted mb-3" }),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("span", [_vm._v("Upload cover")])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row no-gutters col-md-12" }, [
+      _c("div", { staticClass: "ml-auto" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-danger",
+            attrs: { role: "button", type: "submit" }
+          },
+          [_vm._v("Publish")]
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

@@ -7,7 +7,7 @@
 						<div class="text-muted text-center">
 							<p></p>
 							<i class="fa fa-sort-up fa-3x vote-arrow like" @click="likeBook(book)"></i>
-							<span class="h1 vote-arrow number">{{formatVotes(book.votes)}}</span>
+							<span :class="'h1 vote-arrow number ' + getVoteClass(book.votes)">{{formatVotes(book.votes)}}</span>
 							<i class="fa fa-sort-down fa-3x vote-arrow hate mt-3" @click="hateBook(book)"></i>
 						</div>
 					</div>
@@ -38,6 +38,10 @@
 			}
 		},
 		mounted() {
+			const app = this;
+			this.$on('fetchBooks', function () {
+				app.fetchBooks();
+			});
 			this.fetchBooks();
 		},
 		methods: {
@@ -65,6 +69,12 @@
 				.then(function (response) {
 					app.parseResponse(response);
 				});
+			},
+			getVoteClass(votes) {
+				if (votes == 0) {
+					return;
+				}
+				return votes > 0 ? 'text-success' : 'text-danger';
 			},
 			formatVotes(votes) {
 				var padZero = function(num) {
