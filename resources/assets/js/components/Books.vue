@@ -21,7 +21,7 @@
 						<span>Genre: <b>{{book.genre}}</b></span>
 						<br>
 						<span>Year: <b>{{book.year}}</b></span>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris efficitur diam sagittis, consequat quam quis, condimentum massa. </p>
+						<p>{{book.description}}</p>
 					</div>
 				</div>
 			</div>

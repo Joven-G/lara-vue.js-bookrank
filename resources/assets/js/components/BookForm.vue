@@ -24,7 +24,7 @@
 								<div class="col-md-4">
 									<div class="form-group">
 										<label for="" class="label-form" for="bookYear">Year</label>
-										<input required type="number" class="form-control" id="bookYear" v-model="book.year"  pattern="####" placeholder="Book year...">
+										<input required type="number" class="form-control" min="1000" max="9999" id="bookYear" v-model="book.year"  pattern="[0-9]{4}" placeholder="Book year...">
 									</div>
 								</div>
 								<div class="col-md-8">

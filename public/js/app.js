@@ -47471,11 +47471,7 @@ var render = function() {
                 _c("b", [_vm._v(_vm._s(book.year))])
               ]),
               _vm._v(" "),
-              _c("p", [
-                _vm._v(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris efficitur diam sagittis, consequat quam quis, condimentum massa. "
-                )
-              ])
+              _c("p", [_vm._v(_vm._s(book.description))])
             ])
           ])
         ])
@@ -47763,8 +47759,10 @@ var render = function() {
                         attrs: {
                           required: "",
                           type: "number",
+                          min: "1000",
+                          max: "9999",
                           id: "bookYear",
-                          pattern: "####",
+                          pattern: "[0-9]{4}",
                           placeholder: "Book year..."
                         },
                         domProps: { value: _vm.book.year },
