@@ -4,11 +4,11 @@
 			<div class="row col-md-12">
 				<voting-control :book="book" :onVote="onVote"></voting-control>
 				<div class="col-md-4 row justify-content-center align-items-self">
-						<img src="https://www.opeeqo.com/public/assets/img/avatar-placeholder.jpg" class="img-fluid">
+						<img src="https://www.opeeqo.com/public/assets/img/avatar-placeholder.jpg" class="img-fluid rounded">
 				</div>
 				<div class="col-md-7 ml-auto">
 					<h5><a :href="'/books/' + book.id">{{book.title}}</a></h5>
-					<span>Author: <b>{{book.author.first_name}} {{book.author.last_name}}</b></span>
+					<span><a :href="'/authors/' + book.author.id">{{book.author.first_name}} {{book.author.last_name}}</a></span>
 					<br>
 					<span>Genre: <b>{{book.genre}}</b></span>
 					<br>

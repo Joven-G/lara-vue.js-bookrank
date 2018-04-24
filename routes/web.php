@@ -13,3 +13,5 @@
 
 Route::get('/', 'BookController@index')->name('home');
 Route::get('/books/{book}', 'BookController@show')->name('showBook');
+
+Route::get('/authors/{author}', 'AuthorController@show')->name('showAuthor');

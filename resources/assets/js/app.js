@@ -28,6 +28,8 @@ Vue.component('books', require('./components/Books.vue'));
 Vue.component('book-form', require('./components/BookForm.vue'));
 Vue.component('single-book', require('./components/SingleBook.vue'));
 
+Vue.component('single-author', require('./components/SingleAuthor.vue'));
+
 const app = new Vue({
     el: '#app'
 });

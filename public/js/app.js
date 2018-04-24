@@ -14013,6 +14013,8 @@ Vue.component('books', __webpack_require__(41));
 Vue.component('book-form', __webpack_require__(44));
 Vue.component('single-book', __webpack_require__(52));
 
+Vue.component('single-author', __webpack_require__(61));
+
 var app = new Vue({
   el: '#app'
 });
@@ -48235,8 +48237,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("span", [
-              _vm._v("Author: "),
-              _c("b", [
+              _c("a", { attrs: { href: "/authors/" + _vm.book.author.id } }, [
                 _vm._v(
                   _vm._s(_vm.book.author.first_name) +
                     " " +
@@ -48279,7 +48280,7 @@ var staticRenderFns = [
       { staticClass: "col-md-4 row justify-content-center align-items-self" },
       [
         _c("img", {
-          staticClass: "img-fluid",
+          staticClass: "img-fluid rounded",
           attrs: {
             src:
               "https://www.opeeqo.com/public/assets/img/avatar-placeholder.jpg"
@@ -48295,6 +48296,116 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-a685bc20", module.exports)
+  }
+}
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(11)
+/* script */
+var __vue_script__ = __webpack_require__(62)
+/* template */
+var __vue_template__ = __webpack_require__(63)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/SingleAuthor.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-53fd1c2a", Component.options)
+  } else {
+    hotAPI.reload("data-v-53fd1c2a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['author_id'],
+	data: function data() {
+		return {
+			author: {
+				books: []
+			}
+		};
+	},
+	mounted: function mounted() {
+		this.getSingleAuthor();
+	},
+
+	methods: {
+		parseResponse: function parseResponse(response) {
+			this.author = response.data.data;
+		},
+		getSingleAuthor: function getSingleAuthor() {
+			var app = this;
+			axios.get('/api/authors/' + app.author_id).then(function (response) {
+				app.parseResponse(response);
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("h4", [_vm._v(_vm._s(_vm.author.full_name))]),
+    _vm._v(" "),
+    _c("hr")
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-53fd1c2a", module.exports)
   }
 }
 
