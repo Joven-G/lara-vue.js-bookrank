@@ -12,7 +12,7 @@ class BookController extends Controller
     //
     public function index() {
     	$books = Book::latest()
-    		->paginate(20);
+    		->paginate(10);
 
     	return BookResource::collection($books);
     }
@@ -34,5 +34,15 @@ class BookController extends Controller
 
     public function update(Book $book) {
         return new BookResource($book);
+    }
+
+    public function voteup(Book $book) {
+        $book->vote(1);
+        return $this->index();
+    }
+
+    public function votedown(Book $book) {
+        $book->vote(-1);
+        return $this->index();
     }
 }

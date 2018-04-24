@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     //
-    public $fillable = ["title", "genre", "year", "author_id"];
+    public $fillable = ["title", "genre", "year", "author_id", "description", "votes"];
 
     public function author() {
     	return $this->hasOne('App\Author');
+    }
+
+    public function vote($v) {
+    	$this->update(['votes' => ($this->votes + $v) ]);
     }
 }

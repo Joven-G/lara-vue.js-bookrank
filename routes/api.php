@@ -22,5 +22,9 @@ Route::resource('books', 'Api\BookController')
 
 Route::put('books/{book}/report', 'Api\BookController@update');
 
+Route::put('books/{book}/vote-up', 'Api\BookController@voteup');
+
+Route::put('books/{book}/vote-down', 'Api\BookController@votedown');
+
 Route::resource('authors', 'Api\AuthorController')
 	->only(['index', 'show', 'store']);

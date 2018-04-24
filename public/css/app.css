@@ -10459,3 +10459,25 @@ button[type="submit"]:hover {
   background: #2f3c4e;
 }
 
+.img-book-cover {
+  width: 140px;
+  height: 140px;
+}
+
+.vote-arrow {
+  line-height: 0;
+  cursor: pointer;
+}
+
+.vote-arrow.like:hover {
+  color: #28a745;
+}
+
+.vote-arrow.number:hover {
+  color: #444;
+}
+
+.vote-arrow.hate:hover {
+  color: #f14444;
+}
+

@@ -47319,6 +47319,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -47332,13 +47353,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
+		parseResponse: function parseResponse(response) {
+			this.books = response.data.data;
+			this.meta = response.data.meta;
+		},
 		fetchBooks: function fetchBooks() {
 			var app = this;
 			axios.get('/api/books').then(function (response) {
-				console.log(response.data);
-				app.books = response.data.data;
-				app.meta = response.data.meta;
+				app.parseResponse(response);
 			});
+		},
+		likeBook: function likeBook(book) {
+			var app = this;
+			axios.put('/api/books/' + book.id + '/vote-up').then(function (response) {
+				app.parseResponse(response);
+			});
+		},
+		hateBook: function hateBook(book) {
+			var app = this;
+			axios.put('/api/books/' + book.id + '/vote-down').then(function (response) {
+				app.parseResponse(response);
+			});
+		},
+		formatVotes: function formatVotes(votes) {
+			var padZero = function padZero(num) {
+				if (num < 0) {
+					return num > -10 ? '-0' + num * -1 : num;
+				}
+				return num < 10 ? '0' + num : num;
+			};
+			return votes ? padZero(votes) : '00';
 		}
 	}
 });
@@ -47354,17 +47398,93 @@ var render = function() {
   return _c(
     "div",
     _vm._l(_vm.books, function(book) {
-      return _c("div", [
-        _c("span", [_vm._v(_vm._s(book.title))]),
-        _vm._v(" "),
-        _c("span", [_vm._v(_vm._s(book.genre))]),
-        _vm._v(" "),
-        _c("span", [_vm._v(_vm._s(book.year))])
+      return _c("div", { staticClass: "card p-2 my-3" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "col-md-1 row justify-content-center align-items-center"
+              },
+              [
+                _c("div", { staticClass: "text-muted text-center" }, [
+                  _c("p"),
+                  _vm._v(" "),
+                  _c("i", {
+                    staticClass: "fa fa-sort-up fa-3x vote-arrow like",
+                    on: {
+                      click: function($event) {
+                        _vm.likeBook(book)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "h1 vote-arrow number" }, [
+                    _vm._v(_vm._s(_vm.formatVotes(book.votes)))
+                  ]),
+                  _vm._v(" "),
+                  _c("i", {
+                    staticClass: "fa fa-sort-down fa-3x vote-arrow hate mt-3",
+                    on: {
+                      click: function($event) {
+                        _vm.hateBook(book)
+                      }
+                    }
+                  })
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(0, true),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-9" }, [
+              _c("h4", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(book.title))])
+              ]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v("Genre: "),
+                _c("b", [_vm._v(_vm._s(book.genre))])
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v("Year: "),
+                _c("b", [_vm._v(_vm._s(book.year))])
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris efficitur diam sagittis, consequat quam quis, condimentum massa. "
+                )
+              ])
+            ])
+          ])
+        ])
       ])
     })
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2" }, [
+      _c("div", [
+        _c("img", {
+          staticClass: "img-responsive img-book-cover",
+          attrs: {
+            src:
+              "https://www.opeeqo.com/public/assets/img/avatar-placeholder.jpg"
+          }
+        })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

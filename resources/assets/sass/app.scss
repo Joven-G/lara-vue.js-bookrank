@@ -19,6 +19,7 @@ $color_3: #fff;
 $border_color_1: #ccc;
 $border_color_2: #fff;
 $border_color_3: #f14444;
+$book_cover_size: 140px;
 
 nav.navbar-findcond {
   background: #fff;
@@ -79,3 +80,24 @@ button[type="submit"] {
   }
 }
 
+.img-book-cover {
+  width: $book_cover_size;
+  height: $book_cover_size;
+}
+
+.vote-arrow {
+  line-height: 0;
+  cursor: pointer;
+}
+
+.vote-arrow.like:hover {
+  color: $success;
+}
+
+.vote-arrow.number:hover {
+  color: $color_2;
+}
+
+.vote-arrow.hate:hover {
+  color: $color_1;
+}
