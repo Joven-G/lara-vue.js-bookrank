@@ -47341,12 +47341,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			books: [],
-			meta: {}
+			meta: {},
+			posting: false
 		};
 	},
 	mounted: function mounted() {
@@ -47370,14 +47374,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		likeBook: function likeBook(book) {
 			var app = this;
+			if (this.posting) return;
+			this.posting = true;
 			axios.put('/api/books/' + book.id + '/vote-up').then(function (response) {
 				app.parseResponse(response);
+				app.posting = false;
 			});
 		},
 		hateBook: function hateBook(book) {
 			var app = this;
+			if (this.posting) return;
+			this.posting = true;
 			axios.put('/api/books/' + book.id + '/vote-down').then(function (response) {
 				app.parseResponse(response);
+				app.posting = false;
 			});
 		},
 		getVoteClass: function getVoteClass(votes) {
@@ -47408,70 +47418,99 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "row justify-content-between" },
     _vm._l(_vm.books, function(book) {
-      return _c("div", { staticClass: "card p-2 my-3" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "col-md-1 row justify-content-center align-items-center"
-              },
-              [
-                _c("div", { staticClass: "text-muted text-center" }, [
-                  _c("p"),
-                  _vm._v(" "),
-                  _c("i", {
-                    staticClass: "fa fa-sort-up fa-3x vote-arrow like",
-                    on: {
-                      click: function($event) {
-                        _vm.likeBook(book)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
+      return _c("div", { staticClass: "col-md-6 my-3" }, [
+        _c("div", { staticClass: "card py-2 px-3" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row col-md-12" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-md-1 mr-auto row justify-content-center align-items-center"
+                },
+                [
                   _c(
-                    "span",
+                    "div",
                     {
-                      class:
-                        "h1 vote-arrow number " + _vm.getVoteClass(book.votes)
+                      staticClass: "text-muted text-center",
+                      staticStyle: { "max-width": "50px !important" }
                     },
-                    [_vm._v(_vm._s(_vm.formatVotes(book.votes)))]
-                  ),
-                  _vm._v(" "),
-                  _c("i", {
-                    staticClass: "fa fa-sort-down fa-3x vote-arrow hate mt-3",
-                    on: {
-                      click: function($event) {
-                        _vm.hateBook(book)
-                      }
-                    }
-                  })
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _vm._m(0, true),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-9" }, [
-              _c("h4", [
-                _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(book.title))])
-              ]),
+                    [
+                      _c("p"),
+                      _vm._v(" "),
+                      _c("i", {
+                        staticClass: "fa fa-sort-up fa-3x vote-arrow like",
+                        on: {
+                          click: function($event) {
+                            _vm.likeBook(book)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          class:
+                            "h2 vote-arrow number " +
+                            _vm.getVoteClass(book.votes)
+                        },
+                        [_vm._v(_vm._s(_vm.formatVotes(book.votes)))]
+                      ),
+                      _vm._v(" "),
+                      _c("i", {
+                        staticClass:
+                          "fa fa-sort-down fa-3x vote-arrow hate mt-3",
+                        on: {
+                          click: function($event) {
+                            _vm.hateBook(book)
+                          }
+                        }
+                      })
+                    ]
+                  )
+                ]
+              ),
               _vm._v(" "),
-              _c("span", [
-                _vm._v("Genre: "),
-                _c("b", [_vm._v(_vm._s(book.genre))])
-              ]),
+              _vm._m(0, true),
               _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [
-                _vm._v("Year: "),
-                _c("b", [_vm._v(_vm._s(book.year))])
-              ]),
-              _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(book.description))])
+              _c("div", { staticClass: "col-md-8 ml-auto" }, [
+                _c("h5", [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _vm._v(_vm._s(book.title))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("span", [
+                  _vm._v("Author: "),
+                  _c("b", [
+                    _vm._v(
+                      _vm._s(book.author.first_name) +
+                        " " +
+                        _vm._s(book.author.last_name)
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("span", [
+                  _vm._v("Genre: "),
+                  _c("b", [_vm._v(_vm._s(book.genre))])
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("span", [
+                  _vm._v("Year: "),
+                  _c("b", [_vm._v(_vm._s(book.year))])
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(book.description))])
+              ])
             ])
           ])
         ])
@@ -47484,16 +47523,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2" }, [
-      _c("div", [
-        _c("img", {
-          staticClass: "img-responsive img-book-cover",
-          attrs: {
-            src:
-              "https://www.opeeqo.com/public/assets/img/avatar-placeholder.jpg"
-          }
-        })
-      ])
+    return _c("div", { staticClass: "col-md-3" }, [
+      _c("img", {
+        staticClass: "img-responsive img-book-cover",
+        attrs: {
+          src: "https://www.opeeqo.com/public/assets/img/avatar-placeholder.jpg"
+        }
+      })
     ])
   }
 ]

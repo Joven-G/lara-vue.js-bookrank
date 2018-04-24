@@ -10,7 +10,7 @@ class Book extends Model
     public $fillable = ["title", "genre", "year", "author_id", "description", "votes"];
 
     public function author() {
-    	return $this->hasOne('App\Author');
+    	return $this->belongsTo('App\Author');
     }
 
     public function vote($v) {

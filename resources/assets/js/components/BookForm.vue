@@ -70,7 +70,7 @@
 					cover: '',
 					author: '',
 					genre: '',
-				}
+				},
 			}
 		},
 		methods: {
