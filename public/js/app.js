@@ -47661,12 +47661,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			books: [],
-			meta: {}
+			meta: {},
+			pageCount: 1
 		};
 	},
 	mounted: function mounted() {
@@ -47681,10 +47699,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		parseResponse: function parseResponse(response) {
 			this.books = response.data.data;
 			this.meta = response.data.meta;
+			this.pageCount = this.meta.last_page;
 		},
 		fetchBooks: function fetchBooks() {
+			var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
 			var app = this;
-			axios.get('/api/books').then(function (response) {
+			axios.get('/api/books?page=' + page).then(function (response) {
 				app.parseResponse(response);
 			});
 		}
@@ -47704,18 +47725,46 @@ var render = function() {
         _c(
           "div",
           { staticClass: "row justify-content-between" },
-          _vm._l(_vm.books, function(book) {
-            return _c(
-              "div",
-              { staticClass: "col-md-6 my-3" },
-              [
-                _c("book-card", {
-                  attrs: { book: book, onVote: _vm.parseResponse }
-                })
-              ],
-              1
-            )
-          })
+          [
+            _vm._l(_vm.books, function(book) {
+              return _c(
+                "div",
+                { staticClass: "col-md-6 my-3" },
+                [
+                  _c("book-card", {
+                    attrs: { book: book, onVote: _vm.parseResponse }
+                  })
+                ],
+                1
+              )
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-12" })
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "navigation mt-5" },
+          [
+            _c("paginate", {
+              attrs: {
+                "page-count": _vm.pageCount,
+                "click-handler": _vm.fetchBooks,
+                "prev-text": "Prev",
+                "next-text": "Next",
+                "page-class": "page-item",
+                "prev-class": "page-item",
+                "prev-link-class": "page-link",
+                "next-class": "page-item",
+                "next-link-class": "page-link",
+                "page-link-class": "page-link",
+                "container-class": "pagination justify-content-center"
+              }
+            })
+          ],
+          1
         )
       ])
     : _c("div", { staticClass: "text-center text-muted" }, [

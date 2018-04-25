@@ -11,25 +11,36 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar bg-white border-bottom">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
             <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ route('home') }}">BookRank</a>
-                </div>
-                <div class="" id="navbar">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="navbar-item">
-                            <a href="#" class="navbar-link">{{ Auth::user()->name }}</a>
-                        </li>
-                        <li class="navbar-item">
+              <a class="navbar-brand" href="{{ route('home') }}">BookRank</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                  </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">{{ Auth::user()->name }}</a>
+                    </li>
+                    <li class="nav-item">
                         <form action="/logout" method="POST">
                             {{ csrf_field() }}
-                            <button class="btn btn-link navbar-link" type="submit">Logout</button>
+                            <button class="btn btn-link nav-link" type="submit">Logout</button>
                         </form>
-
-                        </li>
-                    </ul>
-                </div>
+                    </li>
+                </ul>
+              </div>
             </div>
         </nav>
         @yield('content')
