@@ -39,6 +39,11 @@ class BookController extends Controller
         return new BookResource($book);
     }
 
+    public function destroy(Request $request, Book $book) {
+        $book->delete();
+        return ["status" => "deleted"];
+    }
+
     public function voteup(Book $book) {
         $book->vote(1);
         return $this->index();
@@ -47,5 +52,10 @@ class BookController extends Controller
     public function votedown(Book $book) {
         $book->vote(-1);
         return $this->index();
+    }
+
+    public function byauthor(Request $request, $author) {
+        $books =  Book::where('author_id', $author)->orderBy('year', 'desc')->paginate(20);
+        return BookResource::collection($books);
     }
 }

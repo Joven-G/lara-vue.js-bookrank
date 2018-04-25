@@ -1,8 +1,13 @@
 <template>
-	<div class="row justify-content-between">
-		<div class="col-md-6 my-3" v-for="book in books">
-			<book-card :book="book" :onVote="parseResponse"></book-card>
+	<div v-if="books.length > 0">
+		<div class="row justify-content-between">
+			<div class="col-md-6 my-3" v-for="book in books">
+				<book-card :book="book" :onVote="parseResponse"></book-card>
+			</div>
 		</div>
+	</div>
+	<div v-else class="text-center text-muted">
+		<p>No books yet.</p>
 	</div>
 </template>
 

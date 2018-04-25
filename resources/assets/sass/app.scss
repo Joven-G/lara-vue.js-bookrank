@@ -21,52 +21,6 @@ $border_color_2: #fff;
 $border_color_3: #f14444;
 $book_cover_size: 100px;
 
-nav.navbar-findcond {
-  background: #fff;
-  border-color: $border_color_1;
-  box-shadow: 0 0 2px 0 #ccc;
-  a {
-    color: $color_1;
-  }
-  ul.navbar-nav {
-    a {
-      color: $color_1;
-      border-style: solid;
-      border-width: 0 0 2px 0;
-      border-color: $border_color_2;
-      &:hover {
-        background: #fff;
-        border-color: $border_color_3;
-      }
-      &:visited {
-        background: #fff;
-      }
-      &:focus {
-        background: #fff;
-      }
-      &:active {
-        background: #fff;
-      }
-    }
-  }
-  ul.dropdown-menu {
-    >li {
-      >a {
-        color: $color_2;
-        &:hover {
-          background: #f14444;
-          color: $color_3;
-        }
-      }
-    }
-  }
-}
-
-.img-book-cover {
-  width: $book_cover_size;
-  height: $book_cover_size;
-}
-
 .vote-arrow {
   line-height: 0;
   cursor: pointer;

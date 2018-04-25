@@ -18,7 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('books', 'Api\BookController')
-	->only(['index', 'store', 'show']);
+	->only(['index', 'store', 'show', 'destroy']);
+
+Route::get('authors/{author}/books', 'Api\BookController@byauthor');
 
 Route::put('books/{book}/report', 'Api\BookController@update');
 

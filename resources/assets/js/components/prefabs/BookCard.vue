@@ -8,7 +8,7 @@
 				</div>
 				<div class="col-md-7 ml-auto">
 					<h5><a :href="'/books/' + book.id">{{book.title}}</a></h5>
-					<span><a :href="'/authors/' + book.author.id">{{book.author.first_name}} {{book.author.last_name}}</a></span>
+					<span><a :href="'/authors/' + book.author.id">{{book.author.full_name}}</a></span>
 					<br>
 					<span>Genre: <b>{{book.genre}}</b></span>
 					<br>

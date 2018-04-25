@@ -11,7 +11,10 @@
 |
 */
 
-Route::get('/', 'BookController@index')->name('home');
-Route::get('/books/{book}', 'BookController@show')->name('showBook');
+Route::middleware(['auth'])->group(function () {
+	Route::get('/', 'BookController@index')->name('home');
+	Route::get('/books/{book}', 'BookController@show')->name('showBook');
 
-Route::get('/authors/{author}', 'AuthorController@show')->name('showAuthor');
+	Route::get('/authors/{author}', 'AuthorController@show')->name('showAuthor');
+});
+Auth::routes();

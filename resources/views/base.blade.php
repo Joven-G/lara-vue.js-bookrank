@@ -11,15 +11,22 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-findcond">
+        <nav class="navbar bg-white border-bottom">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{ route('home') }}">BookRank</a>
                 </div>
-                <div class="collapse navbar-collapse" id="navbar">
+                <div class="" id="navbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active">
-                            <a href="#">Get this</a>
+                        <li class="navbar-item">
+                            <a href="#" class="navbar-link">{{ Auth::user()->name }}</a>
+                        </li>
+                        <li class="navbar-item">
+                        <form action="/logout" method="POST">
+                            {{ csrf_field() }}
+                            <button class="btn btn-link navbar-link" type="submit">Logout</button>
+                        </form>
+
                         </li>
                     </ul>
                 </div>
