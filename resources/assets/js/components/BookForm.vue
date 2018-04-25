@@ -18,7 +18,7 @@
 								<div class="col-md-8">
 									<div class="form-group">
 										<label for="" class="label-form" for="bookTitle">Title</label>
-										<input required type="text" class="form-control" id="bookTitle" v-model="book.title" placeholder="Book title...">
+										<input required type="text" class="form-control" maxlength="50" id="bookTitle" v-model="book.title" placeholder="Book title...">
 									</div>
 								</div>
 								<div class="col-md-4">

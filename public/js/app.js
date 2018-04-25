@@ -48007,6 +48007,7 @@ var render = function() {
                         attrs: {
                           required: "",
                           type: "text",
+                          maxlength: "50",
                           id: "bookTitle",
                           placeholder: "Book title..."
                         },
