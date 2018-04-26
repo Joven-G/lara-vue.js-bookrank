@@ -11,7 +11,7 @@
 		<div class="card mt-1" v-for="book in books">
 			<div class="card-body">
 				<span>
-					<a :href="'/books/' + book.id">{{book.title}} ({{book.year}})</a> | {{book.votes}} votes
+					<a :href="`/books/${book.id}`">{{book.title}} ({{book.year}})</a> | {{book.votes}} votes
 				</span>
 			</div>
 		</div>
@@ -44,13 +44,13 @@
 			},
 			getSingleAuthor() {
 				const app = this;
-				axios.get('/api/authors/' + app.author_id)
+				axios.get(`/api/authors/${app.author_id}`)
 				.then(function (response) {
 					app.parseResponse(response);
 				});
 
 				// books from author
-				axios.get('/api/authors/' + app.author_id + '/books')
+				axios.get(`/api/authors/${app.author_id}/books`)
 				.then(function(response) {
 					app.books = response.data.data;
 				});

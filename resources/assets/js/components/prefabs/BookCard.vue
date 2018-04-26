@@ -7,12 +7,12 @@
 						<img src="https://www.opeeqo.com/public/assets/img/avatar-placeholder.jpg" class="img-fluid rounded">
 				</div>
 				<div class="col-md-7 ml-auto">
-					<h5><a :href="'/books/' + book.id">{{book.title}}</a></h5>
-					<span><a :href="'/authors/' + book.author.id">{{book.author.full_name}}</a></span>
+					<h5><a :href="`/books/${book.id}`">{{book.title}}</a></h5>
+					<span><a :href="`/authors/${book.author.id}`">{{book.author.full_name}}</a></span>
 					<br>
-					<span>Genre: <b>{{book.genre}}</b></span>
+					<span>Genre: <b><a :href="`/books/genre/${book.genre}`">{{book.genre}}</a></b></span>
 					<br>
-					<span>Year: <b>{{book.year}}</b></span>
+					<span>Year: <b><a :href="`/books/year/${book.year}`">{{book.year}}</a></b></span>
 					<br>
 					<p>{{book.description}}</p>
 				</div>

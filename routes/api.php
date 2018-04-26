@@ -28,5 +28,7 @@ Route::put('books/{book}/vote-up', 'Api\BookController@voteup');
 
 Route::put('books/{book}/vote-down', 'Api\BookController@votedown');
 
+Route::get('books/{filter}/{val}', 'Api\BookController@filter');
+
 Route::resource('authors', 'Api\AuthorController')
 	->only(['index', 'show', 'store']);

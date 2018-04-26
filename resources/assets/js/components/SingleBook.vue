@@ -30,14 +30,14 @@
 			},
 			getSingleBook() {
 				const app = this;
-				axios.get('/api/books/' + app.book_id)
+				axios.get(`/api/books/${app.book_id}`)
 				.then(function (response) {
 					app.parseResponse(response);
 				});
 			},
 			deleteBook() {
 				const app = this;
-				axios.delete('/api/books/' + app.book_id)
+				axios.delete(`/api/books/${app.book_id}`)
 				.then(function(response) {
 					// redirect to home
 					location.href = '/';

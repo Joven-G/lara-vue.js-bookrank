@@ -17,4 +17,11 @@ class BookController extends Controller
     		"book" => $book
     	]);
     }
+
+    public function filter(Request $request, $filter, $val) {
+    	return view('books.filter', [
+    		"filter" => $filter,
+    		"val" => $val,
+    	]);
+    }
 }

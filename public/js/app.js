@@ -14012,6 +14012,7 @@ Vue.component('book-card', __webpack_require__(44));
 Vue.component('books', __webpack_require__(47));
 Vue.component('book-form', __webpack_require__(50));
 Vue.component('single-book', __webpack_require__(53));
+Vue.component('books-filter', __webpack_require__(64));
 
 Vue.component('single-author', __webpack_require__(56));
 
@@ -47546,14 +47547,22 @@ var render = function() {
             _vm._v(" "),
             _c("span", [
               _vm._v("Genre: "),
-              _c("b", [_vm._v(_vm._s(_vm.book.genre))])
+              _c("b", [
+                _c("a", { attrs: { href: "/books/genre/" + _vm.book.genre } }, [
+                  _vm._v(_vm._s(_vm.book.genre))
+                ])
+              ])
             ]),
             _vm._v(" "),
             _c("br"),
             _vm._v(" "),
             _c("span", [
               _vm._v("Year: "),
-              _c("b", [_vm._v(_vm._s(_vm.book.year))])
+              _c("b", [
+                _c("a", { attrs: { href: "/books/year/" + _vm.book.year } }, [
+                  _vm._v(_vm._s(_vm.book.year))
+                ])
+              ])
             ]),
             _vm._v(" "),
             _c("br"),
@@ -48588,6 +48597,146 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(65)
+/* template */
+var __vue_template__ = __webpack_require__(66)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/BooksFilter.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-fe8e154a", Component.options)
+  } else {
+    hotAPI.reload("data-v-fe8e154a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['filter', 'val'],
+	data: function data() {
+		return {
+			books: []
+		};
+	},
+	mounted: function mounted() {
+		this.fetchBooks();
+	},
+
+	methods: {
+		fetchBooks: function fetchBooks() {
+			var app = this;
+			axios.get('/api/books/' + this.filter + '/' + this.val).then(function (response) {
+				app.books = response.data.data;
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "mt-5" }, [
+      _c("h3", { staticClass: "page-title" }, [
+        _vm._v("Archive - " + _vm._s(_vm.filter) + ": " + _vm._s(_vm.val))
+      ])
+    ]),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _vm.books.length > 0
+      ? _c(
+          "div",
+          { staticClass: "row" },
+          _vm._l(_vm.books, function(book) {
+            return _c(
+              "div",
+              { staticClass: "col-md-12 mt-5" },
+              [_c("book-card", { attrs: { book: book } })],
+              1
+            )
+          })
+        )
+      : _c("div", { staticClass: "text-muted text-center" }, [
+          _c("p", [_vm._v("No books yet.")])
+        ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-fe8e154a", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

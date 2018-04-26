@@ -52,7 +52,7 @@
 			},
 			fetchBooks(page = 1) {
 				const app = this;
-				axios.get('/api/books?page=' + page)
+				axios.get(`/api/books?page=${page}`)
 				.then(function(response) {
 					app.parseResponse(response);
 				});

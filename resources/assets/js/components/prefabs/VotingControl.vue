@@ -22,14 +22,14 @@
 		methods: {
 			likeBook() {
 				const app = this;
-				axios.put('/api/books/' + app.book.id + '/vote-up')
+				axios.put(`/api/books/${app.book.id}/vote-up`)
 				.then(function (response) {
 					app.onVote(response);
 				});
 			},
 			hateBook() {
 				const app = this;
-				axios.put('/api/books/' + app.book.id + '/vote-down')
+				axios.put(`/api/books/${app.book.id}/vote-down`)
 				.then(function (response) {
 					app.onVote(response);
 				});

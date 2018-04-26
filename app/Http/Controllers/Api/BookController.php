@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Auth;
 use App\Book;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -56,6 +57,11 @@ class BookController extends Controller
 
     public function byauthor(Request $request, $author) {
         $books =  Book::where('author_id', $author)->orderBy('year', 'desc')->paginate(20);
+        return BookResource::collection($books);
+    }
+
+    public function filter(Request $request, $filter, $val) {
+        $books = Book::where($filter, $val)->orderBy('title', 'asc')->paginate(20);
         return BookResource::collection($books);
     }
 }
